@@ -1,0 +1,8 @@
+streamlit
+boto3
+psycopg
+psycopg2
+langchain
+langchain-postgres
+langchain-aws
+langchain-community
