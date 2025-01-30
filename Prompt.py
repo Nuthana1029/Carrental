@@ -23,6 +23,7 @@ def get_prompt(content, result_salient, result_history, data, ancillaries):
     2. Car Model: Use the customer's preferences, similar preference i.e data from {result_salient} and {result_history} and vehicle type to best suit the recommendations.
     3. Ancillaries: Recommend suitable ancillaries that enhance the customer's experience based on their specific needs and the context of their trip, using the provided {content} and data from {result_salient} and {result_history}.
     4. Give only the cars from my {result_salient}
+    5. Give the latest cars as first place in result
  
     Example:
     If the pickup location is Hyderabad, the pickup date is 2024-07-25 (i.e., rainy season), the vehicle type is an SUV, and the number of children is 2, the response should be as follows:
@@ -46,7 +47,6 @@ def get_prompt(content, result_salient, result_history, data, ancillaries):
     please give the output from my inventory source
     previous car preference data also show
     display the {result_salient} and {result_history}
-    """ 
+    display the lastest cars in first place according to my input data
+    """
     return prompt
-  
- 
