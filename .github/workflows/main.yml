@@ -1,0 +1,24 @@
+name: Deploy to EC2
+on:
+push:
+   branches:
+     - main
+jobs:
+deploy:
+   runs-on: ubuntu-latest
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v2
+   - name: Set up SSH keys
+     uses: webfactory/ssh-agent@v0.5.3
+     with:
+       ssh-private-key: ${{ secrets.EC2KEY }}
+   - name: SSH into EC2 and deploy
+     run: |
+       ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.EC2HOST }} << 'EOF'
+         cd /home/ec2-user/Carrental
+         git pull origin main
+         pip3 install -r requirements.txt
+         tmux kill-session -t streamlit_session 2>/dev/null || true
+         tmux new-session -d -s stream_session 'streamlit run Streamlit1.py --server.port 8501 --server.enableCORS false'
+       EOF
